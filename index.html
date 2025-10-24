@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PINMC STORE</title>
+<style>
+:root{
+  --yellow: #FFD700;
+  --muted: #fff8d0;
+  --dark: #111;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--yellow);
+  color: #000;
+  text-align: center;
+}
+
+.hidden { display: none; }
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #000;
+  text-shadow: 2px 2px #fff8d0;
+}
+
+/* Menu Grid di Halaman Home */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 0 20px;
+}
+
+.menu-btn {
+  background: #000;
+  color: var(--yellow);
+  padding: 25px 0;
+  border: 3px solid #000;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.menu-btn:hover {
+  background: var(--yellow);
+  color: #000;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #000;
+}
+
+/* Konten */
+.content {
+  padding: 20px;
+}
+
+.box {
+  background: var(--muted);
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 12px auto;
+  width: 90%;
+  max-width: 480px;
+}
+
+.order-btn, .buy-btn, .back-btn {
+  background: #000;
+  color: var(--yellow);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+.order-btn:hover, .buy-btn:hover, .back-btn:hover {
+  background: var(--yellow);
+  color: #000;
+  transform: scale(1.05);
+}
+
+input, textarea {
+  width: 95%;
+  padding: 8px;
+  margin-top: 6px;
+  border: 2px solid #000;
+  border-radius: 8px;
+}
+
+/* Payment Modal */
+#paymentModal {
+  position: fixed; left:0; top:0; right:0; bottom:0;
+  display: none; justify-content: center; align-items: center;
+  background: rgba(0,0,0,0.6);
+  z-index: 9999;
+}
+.modal-card {
+  background: var(--muted);
+  border: 3px solid #000;
+  border-radius: 12px;
+  padding: 18px;
+  width: 90%;
+  max-width: 440px;
+}
+.pay-option {
+  background: #fdd835;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 8px 0;
+  cursor: pointer;
+}
+.close-btn {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.close-btn:hover { background: yellow; color: black; }
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--muted);
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 8px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- HALAMAN HOME -->
+<div id="home" class="content">
+  <h1>🛒 PINMC STORE 🛒</h1>
+  <div class="menu-grid">
+    <button class="menu-btn" onclick="showPage('skin')">🎨 Custom Skin</button>
+    <button class="menu-btn" onclick="showPage('topup')">💎 Top Up Game</button>
+    <button class="menu-btn" onclick="showPage('pp')">🖼️ PP Pixel</button>
+    <button class="menu-btn" onclick="showPage('thumb')">🎬 Thumbnail</button>
+  </div>
+</div>
+
+<!-- CUSTOM SKIN -->
+<div id="skin" class="content hidden">
+  <button class="back-btn" onclick="backHome()">← Kembali ke Home</button>
+  <h2>🎨 Custom Skin Minecraft</h2>
+  <div class="box">
+    🖌️ Custom Skin Bebas Req — 10K<br>
+    <textarea id="ciriBebas" placeholder="Tulis ciri-ciri skin..."></textarea><br>
+    <button class="order-btn" onclick="openPaymentModal('Custom Skin Bebas REQ','10K','ciriBebas')">ORDER</button>
+  </div>
+  <div class="box">
+    🖌️ Skin Couple — 20K<br>
+    <textarea id="ciriCouple" placeholder="Tulis ciri-ciri skin..."></textarea><br>
+    <button class="order-btn" onclick="openPaymentModal('Custom Skin Couple','20K','ciriCouple')">ORDER</button>
+  </div>
+</div>
+
+<!-- TOP UP GAME -->
+<div id="topup" class="content hidden">
+  <button class="back-btn" onclick="backHome()">← Kembali ke Home</button>
+  <h2>💎 Top Up Game</h2>
+  <div id="game-selection" class="menu-grid">
+    <button class="menu-btn" onclick="selectGame('Free Fire')">Free Fire</button>
+    <button class="menu-btn" onclick="selectGame('Mobile Legends')">Mobile Legends</button>
+    <button class="menu-btn" onclick="selectGame('Blood Strike')">Blood Strike</button>
+    <button class="menu-btn" onclick="selectGame('PUBG Mobile')">PUBG Mobile</button>
+    <button class="menu-btn" onclick="selectGame('Roblox')">Roblox</button>
+    <button class="menu-btn" onclick="selectGame('Higgs Domino')">Higgs Domino</button>
+    <button class="menu-btn" onclick="selectGame('FC Mobile')">FC Mobile</button>
+    <button class="menu-btn" onclick="selectGame('Honor of Kings')">Honor of Kings</button>
+    <button class="menu-btn" onclick="selectGame('Super Sus')">Super Sus</button>
+  </div>
+
+  <div id="selected-game" class="hidden">
+    <button class="back-btn" onclick="goBack()">← Kembali</button>
+    <h3 id="game-title"></h3>
+    <input type="text" id="playerId" placeholder="Masukkan ID Game"><br><br>
+    <div id="diamond-list"></div>
+  </div>
+</div>
+
+<!-- PP PIXEL -->
+<div id="pp" class="content hidden">
+  <button class="back-btn" onclick="backHome()">← Kembali ke Home</button>
+  <h2>🖼️ Jasa PP Pixel</h2>
+  <div class="box">
+    16x16 = 5K<br>32x32 = 10K<br>62x62 = 15K<br>128x128 = 25K<br>256x256 = 35K<br>512x512 = 50K<br>
+    <button class="order-btn" onclick="openPaymentModal('PP Pixel','5K')">ORDER</button>
+  </div>
+</div>
+
+<!-- THUMBNAIL -->
+<div id="thumb" class="content hidden">
+  <button class="back-btn" onclick="backHome()">← Kembali ke Home</button>
+  <h2>🎬 Jasa Thumbnail</h2>
+  <div class="box">
+    • YouTube<br>• TikTok<br>• Snack Video<br>• Instagram<br><br>
+    💰 Harga: 10K<br>
+    <button class="order-btn" onclick="openPaymentModal('Thumbnail YouTube','10K')">ORDER</button>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div id="paymentModal">
+  <div class="modal-card">
+    <h3>Pilih Metode Pembayaran</h3>
+    <p>ID Pembeli: <strong id="modalPlayerId">-</strong></p>
+    <button class="pay-option" onclick="payVia('QRIS')">💳 QRIS</button>
+    <button class="pay-option" onclick="payVia('DANA')">💰 DANA</button>
+    <button class="close-btn" onclick="closePayment()">Batal</button>
+  </div>
+</div>
+
+<script>
+const adminWaFull = '6283825148871';
+let selectedGame="", selectedItem="", selectedId="";
+
+const games = {
+"Free Fire":["💎5 = 1K","💎12 = 2K","💎70 = 10K","💎100 = 14K","💎140 = 19K","💎200 = 26K","💎300 = 38K","💎400 = 49K","💎500 = 60K","💎720 = 82K","💎930 = 110K","💎1000 = 115K","💎1450 = 164K","💎2000 = 227K","💎3000 = 340K","💎4000 = 455K","💎5600 = 632K","💎7650 = 855K"],
+"Mobile Legends":["💎19 = 6K","💎28 = 8K","💎44 = 13K","💎112 = 31K","💎222 = 58K","💎300 = 78K","💎514 = 133K","💎706 = 179K","💎875 = 219K","💎1050 = 261K","💎1220 = 305K","💎3688 = 890K"],
+"Blood Strike":["🪙100 = 12K","🪙300 = 33K","🪙500 = 53K","🪙1.000 = 106K","🪙2.000 = 111K"],
+"PUBG Mobile":["🪙60 = 15K","🪙300 = 73K","🪙600 = 142K"],
+"Roblox":["🪙100 = 85K","🪙200 = 105K","🪙400 = 115K","🪙800 = 160K"],
+"Higgs Domino":["🪙100m = 7K","🪙200m = 13K","🪙300m = 19K","🪙500m = 30K","🪙1b = 58K"],
+"FC Mobile":["🪙40 = 7K","🪙100 = 16K","🪙520 = 75K","🪙1.070 = 150K"],
+"Honor of Kings":["🎟16 = 3K","🎟80 = 15K","🎟240 = 43K","🎟400 = 71K","🎟560 = 100K","🎟800 = 141K","🎟1200 = 212K","🎟2400 = 422K","🎟4000 = 703K"],
+"Super Sus":["🪙100 = 11K","🪙310 = 32K","🪙520 = 53K","🪙1.060 = 107K"]
+};
+
+function showPage(id){
+  document.querySelectorAll('.content').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function backHome(){
+  document.querySelectorAll('.content').forEach(c=>c.classList.add('hidden'));
+  document.getElementById('home').classList.remove('hidden');
+}
+
+function selectGame(name){
+  // sembunyikan semua tombol game
+  document.querySelectorAll('#game-selection .menu-btn').forEach(btn => btn.style.display = 'none');
+  
+  document.getElementById('selected-game').classList.remove('hidden');
+  document.getElementById('game-title').textContent = name;
+  const list = (games[name]||[]).map(item=>`
+    <div class="item-row">
+      <span>${item}</span>
+      <button class="buy-btn" onclick="openPaymentModal('${name}','${item}')">BUY</button>
+    </div>
+  `).join('');
+  document.getElementById('diamond-list').innerHTML = list;
+}
+
+function goBack(){
+  document.getElementById('selected-game').classList.add('hidden');
+  // tampilkan kembali tombol game
+  document.querySelectorAll('#game-selection .menu-btn').forEach(btn => btn.style.display = 'block');
+}
+
+function openPaymentModal(game, item, textareaId){
+  selectedGame = game;
+  selectedItem = item;
+  selectedId = document.getElementById('playerId')?.value || '';
+  document.getElementById('modalPlayerId').textContent = selectedId || '-';
+  document.getElementById('paymentModal').style.display = 'flex';
+}
+
+function closePayment(){
+  document.getElementById('paymentModal').style.display = 'none';
+}
+
+function payVia(method){
+  const text = encodeURIComponent(
+    `Halo admin, saya ingin order:\n\n🎮 Game: ${selectedGame}\n💎 Item: ${selectedItem}\n🆔 ID: ${selectedId}\n💳 Metode: ${method}`
+  );
+  window.open(`https://wa.me/${adminWaFull}?text=${text}`,'_blank');
+  closePayment();
+}
+</script>
